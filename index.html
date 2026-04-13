@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="ADS370_W12_ModelBuilding_I_live_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/tabby.min.js"></script>
+<script src="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/popper.min.js"></script>
+<script src="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-html/quarto-syntax-highlighting-dark-ff73747157bea4a22cb1ab1a769f836e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <meta name="author" content="Dr.&nbsp;Ruiwu Niu">
+  <meta name="dcterms.date" content="2026-01-01">
+  <title>Model Building (I)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2; background-color: #2e3440; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #75715e; } /* Annotation */
+    code span.at { color: #f92672; } /* Attribute */
+    code span.bn { color: #ae81ff; } /* BaseN */
+    code span.bu { color: #66d9ef; } /* BuiltIn */
+    code span.cf { color: #f92672; } /* ControlFlow */
+    code span.ch { color: #e6db74; } /* Char */
+    code span.cn { color: #ae81ff; } /* Constant */
+    code span.co { color: #75715e; } /* Comment */
+    code span.cv { color: #75715e; } /* CommentVar */
+    code span.do { color: #75715e; } /* Documentation */
+    code span.dt { color: #66d9ef; font-style: italic; } /* DataType */
+    code span.dv { color: #ae81ff; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #a6e22e; font-weight: bold; } /* Extension */
+    code span.fl { color: #ae81ff; } /* Float */
+    code span.fu { color: #a6e22e; } /* Function */
+    code span.im { color: #f92672; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #f92672; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #a6e22e; } /* Other */
+    code span.pp { color: #f92672; } /* Preprocessor */
+    code span.re { color: #75715e; } /* RegionMarker */
+    code span.sc { color: #ae81ff; } /* SpecialChar */
+    code span.ss { color: #e6db74; } /* SpecialString */
+    code span.st { color: #e6db74; } /* String */
+    code span.va { color: #f8f8f2; } /* Variable */
+    code span.vs { color: #e6db74; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/dist/theme/quarto-8f7abd44f4d338065a64558274d0a35a.css">
+  <link href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="ADS370_W12_ModelBuilding_I_live_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+  <style>
+    /* Top-right logo overlay — replace src path with actual HKSYU emblem PNG */
+    .hksyu-logo-fixed {
+      position: fixed; top: 8px; right: 12px; z-index: 9990;
+      opacity: 0.82; filter: drop-shadow(0 0 3px #1a8a00);
+    }
+    .hksyu-logo-fixed img { height: 46px; width: auto; }
+  </style>
+
+  </head><body class="quarto-dark"><div class="hksyu-logo-fixed">
+    <img src="assets/hksyu_logo.png" alt="HKSYU" onerror="this.style.display='none'">
+  </div>
+  <script>
+    // Subtle random noise flicker on load
+    document.addEventListener('DOMContentLoaded', function() {
+      var slides = document.querySelectorAll('.slides');
+      setInterval(function() {
+        var r = Math.random();
+        if (r < 0.03) {
+          slides.forEach(function(s){ s.style.opacity = (0.93 + Math.random()*0.07).toFixed(2); });
+          setTimeout(function(){ slides.forEach(function(s){ s.style.opacity = '1'; }); }, 60);
+        }
+      }, 800);
+    });
+  </script>
+
+
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Model Building (I)</h1>
+  <p class="subtitle">ADS370 · R for Data Science · Week 12</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Ruiwu Niu 
+</div>
+        <p class="quarto-title-affiliation">
+            Department of Applied Data Science · Hong Kong Shue Yan University
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-01-01</p>
+</section>
+<section class="slide level2">
+
+<!-- SETUP: quarto add r-wasm/quarto-live  (run once in project folder) -->
+<!-- Static {r} chunks = display only. Interactive {webr} chunks run in browser. -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 0 — OPENING  (Slides 1–4)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section" class="slide level2 title-slide center" data-background-color="#020f02">
+<h2></h2>
+<div style="display:flex; flex-direction:column; justify-content:center; height:85%; gap:0.3em;">
+<div style="font-family:'VT323',monospace; color:#afffaf; font-size:0.8em; letter-spacing:0.18em;">
+<p><code>&gt; HKSYU_ADS370.exe --module MODEL_BUILDING_I --week 12</code></p>
+</div>
+<div style="font-family:'VT323',monospace; color:#39ff14; font-size:2.8em; letter-spacing:0.06em; text-shadow: 0 0 18px #39ff14, 0 0 40px #1a8a00; line-height:1.05;">
+<p>MODEL BUILDING [I]<span class="cursor"></span></p>
+</div>
+<div style="color:#ffb000; font-size:1.05em; font-family:'Share Tech Mono',monospace; margin-top:0.3em;">
+<p>Defining Models · Model Families · Practical Examples</p>
+</div>
+<div style="color:#1a8a00; font-size:0.75em; margin-top:1.2em; border-top:1px solid #1f5c0a; padding-top:0.5em;">
+<pre><code>ADS370 — R for Data Science  |  Week 12  |  Spring 2026
+Instructor : Dr. Ruiwu Niu
+Institution: Hong Kong Shue Yan University
+References : Wickham &amp; Grolemund (2017) Ch. 18–19  |  Mailund (2017) Ch. 6–7</code></pre>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 2 ─── -->
+</section>
+<section id="last-weeks-recap-12" class="slide level2">
+<h2>Last Week’s Recap (1/2)</h2>
+<div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.6em; margin-bottom:0.4em;">
+<p><code>&gt; LOAD MODULE: WEEK_11_REVIEW ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░ 82%</code></p>
+</div>
+<p><strong>Week 11 — Exploratory Data Analysis</strong></p>
+<div class="hl-block">
+<p><span class="hl-green"><strong>Variation</strong></span> — Every variable has a distribution. Visualise with <code>geom_histogram()</code> / <code>geom_freqpoly()</code> to detect outliers &amp; unusual values.</p>
+</div>
+<div class="hl-block">
+<p><span class="hl-green"><strong>Covariation</strong></span> — How do two variables move together? - Categorical × continuous → <code>geom_boxplot()</code> - Two continuous → <code>geom_point()</code>, <code>geom_bin2d()</code>, <code>geom_hex()</code></p>
+</div>
+<div class="hl-block">
+<p><span class="hl-amber"><strong>Missing values</strong></span> — Never ignore. Use <code>is.na()</code>, <code>na.rm = TRUE</code>, or replace with <code>ifelse()</code>. Understand <em>why</em> they are missing.</p>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 5–6. | Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 2, 5.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 3 ─── -->
+</section>
+<section id="last-weeks-recap-22" class="slide level2">
+<h2>Last Week’s Recap (2/2)</h2>
+<div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.6em; margin-bottom:0.5em;">
+<p><code>&gt; LOAD MODULE: WEEK_11_REVIEW ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100% OK</code></p>
+</div>
+<p><strong>Patterns, Models &amp; EDA Cycle</strong></p>
+
+<pre style="font-family: 'Courier New', monospace; font-size: 0.8em; line-height: 1.4;">┌─────────────────────────────────────────────────────┐
+│  1 Generate Questions                               │
+│       ↓                                             │
+│  2 Visualise / Transform  (ggplot2, dplyr)          │
+│       ↓                                             │
+│  3 Refine Questions  ← residuals reveal new signal  │
+│       ↑_______________________________________↑     │
+│                  ITERATIVE LOOP                     │
+└─────────────────────────────────────────────────────┘
+</pre>
+<blockquote>
+<p><em>“All models are wrong, but some are useful.”</em> — George E. P. Box</p>
+</blockquote>
+<p><span class="hl-amber">Key insight from last week:</span> models can <strong>remove a pattern</strong> from data, leaving residuals that expose the <strong>next</strong> hidden structure.</p>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 5–6. | Box, G. E. P. (1976). Science and statistics. <em>Journal of the American Statistical Association, 71</em>(356), 791–799. https://doi.org/10.1080/01621459.1976.10480949</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 4 ─── -->
+</section>
+<section id="todays-outline" class="slide level2">
+<h2>Today’s Outline</h2>
+<div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.6em; margin-bottom:0.5em;">
+<p><code>&gt; HKSYU_ADS370.exe --module MODEL_BUILDING_I --week 12</code></p>
+</div>
+
+<pre style="font-family: 'Courier New', monospace; font-size: 0.8em; line-height: 1.4;">┌────────────────────────────────────────────────────────────────────┐
+│  LOADING MODULES FOR ADS370 WEEK 12 ...                            │
+├─────────────────────────────────────────────┬──────────────────────┤
+│  MODULE                                     │  DURATION            │
+├─────────────────────────────────────────────┼──────────────────────┤
+│  [§1] DEFINING MODELS                       │  ~30 min             │
+│       What is a model?  RMSD  lm()          │                      │
+├─────────────────────────────────────────────┼──────────────────────┤
+│  [§2] MODEL FAMILIES         ◄── CORE TODAY │  ~35 min             │
+│       Model matrix  Categorical  Interaction│                      │
+│       Transformations  Splines              │                      │
+├─────────────────────────────────────────────┼──────────────────────┤
+│  [§3] PRACTICAL EXAMPLES                    │  ~25 min             │
+│       Diamonds paradox  NYC Flights         │                      │
+├─────────────────────────────────────────────┼──────────────────────┤
+│  [§4] AT2 IN-CLASS EXERCISE                 │  60 min              │
+│       Implementing Models                   │                      │
+└─────────────────────────────────────────────┴──────────────────────┘
+</pre>
+<div style="color:#1a8a00; font-size:0.65em; margin-top:0.3em;">
+<p>Readings: Wickham &amp; Grolemund (2017) Ch. 18–19 | Mailund (2017) Ch. 6–7</p>
+</div>
+</section>
+<section class="slide level2">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 1 — DEFINING MODELS  (Slides 5–13)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section-1" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="section-title">
+<div class="section-badge">
+<p><code>§ SECTION 01 / 05 ────────────────────────────</code></p>
+</div>
+<div style="font-family:'VT323',monospace; font-size:3.2em; color:#afffaf; text-shadow: 0 0 18px #39ff14; line-height:1.0;">
+<p>DEFINING MODELS</p>
+</div>
+<div style="color:#ffb000; font-size:0.8em; margin-top:0.4em;">
+<p>What is a model? · RMSD · <code>lm()</code> · Optimization</p>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 5 ─── -->
+</section>
+<section id="what-is-a-model" class="slide level2">
+<h2>What Is a Model?</h2>
+<div class="columns">
+<div class="column" style="width:58%;">
+<div class="hl-block">
+<p>A model provides a <strong>simple, low-dimensional summary</strong> of a dataset. It partitions data into:</p>
+<ul>
+<li><span class="hl-green"><strong>Pattern</strong></span> — the structure captured by the model</li>
+<li><span class="hl-amber"><strong>Residuals</strong></span> — what the model does not explain</li>
+</ul>
+</div>
+<p><strong>The key insight:</strong></p>
+<blockquote>
+<p>Models do not reveal <span class="hl-amber"><em>truth</em></span>. They provide <strong>useful approximations</strong>.</p>
+</blockquote>
+<pre><code>DATA = PATTERN + RESIDUAL
+         ↑            ↑
+      (model)    (signal left over)</code></pre>
+</div><div class="column" style="width:40%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "statistical model data pattern residual diagram"
+     Suggest: A visual showing data points, fitted line, and
+     residual arrows on a scatter plot.
+-->
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/residuals.webp" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+<div style="font-size:0.72em; color:#1a8a00; margin-top:0.4em;">
+<blockquote>
+<p><em>“All models are wrong, but some are useful.”</em> — Box (1976)</p>
+</blockquote>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23, p.&nbsp;345. | Box, G. E. P. (1976). Science and statistics. <em>Journal of the American Statistical Association, 71</em>(356), 791–799. https://doi.org/10.1080/01621459.1976.10480949</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 6 ─── -->
+</section>
+<section id="the-two-parts-of-every-model" class="slide level2">
+<h2>The Two Parts of Every Model</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>① Family of Models</strong></p>
+<div class="hl-box">
+<p>A <span class="hl-green"><strong>family</strong></span> is a <em>generic</em> pattern expressed as an equation with free parameters.</p>
+</div>
+<p>Examples:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear</td>
+<td>(y = a_1 + a_2 x)</td>
+</tr>
+<tr class="even">
+<td>Power law</td>
+<td>(y = a_1 x^{a_2})</td>
+</tr>
+<tr class="odd">
+<td>Polynomial</td>
+<td>(y = a_1 + a_2 x + a_3 x^2)</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<p><strong>② Fitted Model</strong></p>
+<div class="hl-box">
+<p>The <span class="hl-amber"><strong>fitted model</strong></span> is the <em>specific</em> member of the family closest to your data.</p>
+</div>
+<p>Example:</p>
+<p><span class="math display">\[y = \underbrace{4.22}_{\hat{a}_1} + \underbrace{2.05}_{\hat{a}_2} \cdot x\]</span></p>
+<p>Parameters (_1, _2) are estimated from data.</p>
+<div style="font-size:0.78em; color:#1a8a00; margin-top:0.5em;">
+<p>Analogy: <em>Family</em> = blueprint template. <em>Fitted model</em> = the specific building constructed from it.</p>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.1, pp.&nbsp;345–346.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 7 ─── -->
+</section>
+<section id="from-250-lines-to-one-visualising-the-search" class="slide level2">
+<h2>From 250 Lines to One: Visualising the Search</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>Start with <strong>random</strong> candidate models from the family (y = a_1 + a_2 x):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href=""></a><span class="fu">library</span>(modelr)</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a><span class="co"># 250 random (intercept, slope) pairs</span></span>
+<span id="cb3-5"><a href=""></a>models <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-6"><a href=""></a>  <span class="at">a1 =</span> <span class="fu">runif</span>(<span class="dv">250</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">40</span>),  <span class="co"># intercept</span></span>
+<span id="cb3-7"><a href=""></a>  <span class="at">a2 =</span> <span class="fu">runif</span>(<span class="dv">250</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)     <span class="co"># slope</span></span>
+<span id="cb3-8"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Most are <span class="hl-amber">poor fits</span> — but this shows the <em>space</em> we are searching.</p>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "250 random regression lines scatter plot R modelr sim1"
+     Suggest: Gray lines (random models) overlaid on sim1 data points;
+     best-fit line in green.
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, pp.&nbsp;347–348.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 8 ─── -->
+</section>
+<section id="measuring-fit-root-mean-squared-deviation" class="slide level2">
+<h2>Measuring Fit: Root-Mean-Squared Deviation</h2>
+<p><strong>How do we decide which model is “best”?</strong></p>
+<div class="hl-block">
+<p><span class="hl-green"><strong>RMSD — Root-Mean-Squared Deviation</strong></span></p>
+<p><span class="math inline">\(\text{RMSD} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}\)</span></p>
+<ul>
+<li><span class="math inline">\((y_i)\)</span> = observed value<br>
+</li>
+<li><span class="math inline">\((\hat{y}_i)\)</span> = predicted value from model<br>
+</li>
+<li>Smaller RMSD → better fit</li>
+</ul>
+</div>
+<div class="cell">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibW9kZWwxIDwtIGZ1bmN0aW9uKGEsIGRhdGEpIHtcbiAgYVsxXSArIGRhdGEkeCAqIGFbMl0gICAgICAgICMgcHJlZGljdCB5ID0gYTEgKyBhMip4XG59XG5cbm1lYXN1cmVfZGlzdGFuY2UgPC0gZnVuY3Rpb24obW9kLCBkYXRhKSB7XG4gIGRpZmYgPC0gZGF0YSR5IC0gbW9kZWwxKG1vZCwgZGF0YSlcbiAgc3FydChtZWFuKGRpZmYgXiAyKSkgICAgICAgICAjIFJNU0Rcbn0ifQ==
+</script>
+</div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, p.&nbsp;349.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 9 ─── -->
+</section>
+<section id="grid-search-brute-force-parameter-exploration" class="slide level2">
+<h2>Grid Search: Brute-Force Parameter Exploration</h2>
+<div class="cell">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDcmVhdGUgYSBncmlkIG9mIGNhbmRpZGF0ZSBwYXJhbWV0ZXIgdmFsdWVzXG5ncmlkIDwtIGV4cGFuZC5ncmlkKFxuICBhMSA9IHNlcSgtNSwgMjAsIGxlbmd0aCA9IDI1KSwgICAjIDI1IGludGVyY2VwdCB2YWx1ZXNcbiAgYTIgPSBzZXEoMSwgMywgIGxlbmd0aCA9IDI1KSAgICAgIyAyNSBzbG9wZSB2YWx1ZXNcbikgfD5cbiAgbXV0YXRlKGRpc3QgPSBwdXJycjo6bWFwMl9kYmwoYTEsIGEyLFxuICAgICAgICAgICBcXChhMSwgYTIpIG1lYXN1cmVfZGlzdGFuY2UoYyhhMSwgYTIpLCBzaW0xKSkpXG5cbiMgQmVzdCAxMCBtb2RlbHMgKGxvd2VzdCBSTVNEKVxuZ3JpZCB8PiBhcnJhbmdlKGRpc3QpIHw+IGhlYWQoMTApIn0=
+</script>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>What grid search reveals:</strong></p>
+<ul>
+<li><span class="hl-amber">25 × 25 = 625</span> candidate models evaluated</li>
+<li>Minimum RMSD found at approximately <code>a1 ≈ 4.2, a2 ≈ 2.0</code></li>
+<li>Still only an <span class="hl-green">approximation</span> — the true optimum lies between grid points</li>
+</ul>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "grid search parameter space contour plot RMSD R"
+     Suggest: 2D contour/heat-map of RMSD values over a1 x a2 space;
+     low-RMSD region highlighted in green.
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, pp.&nbsp;350–351.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 10 ─── -->
+</section>
+<section id="newton-raphson-optimisation-with-optim" class="slide level2">
+<h2>Newton-Raphson Optimisation with <code>optim()</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Numerical minimisation — finds exact minimum</span></span>
+<span id="cb4-2"><a href=""></a>best <span class="ot">&lt;-</span> <span class="fu">optim</span>(</span>
+<span id="cb4-3"><a href=""></a>  <span class="at">par  =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),              <span class="co"># initial guess: a1=0, a2=0</span></span>
+<span id="cb4-4"><a href=""></a>  <span class="at">fn   =</span> measure_distance,</span>
+<span id="cb4-5"><a href=""></a>  <span class="at">data =</span> sim1</span>
+<span id="cb4-6"><a href=""></a>)</span>
+<span id="cb4-7"><a href=""></a></span>
+<span id="cb4-8"><a href=""></a>best<span class="sc">$</span>par   <span class="co"># ➜ [1] 4.222248  2.051204</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hl-block">
+<p><code>optim()</code> uses <span class="hl-green">Newton-Raphson / gradient descent</span> internally. It iteratively steps in the direction of decreasing RMSD until it converges.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Finds <strong>local</strong> minimum (not always global)</li>
+<li>Only practical for <em>non-linear</em> families</li>
+<li>For <span class="hl-amber">linear models</span>: use <code>lm()</code> → exact global minimum via linear algebra</li>
+</ul>
+</div><div class="column" style="width:43%;">
+<div style="font-size:0.85em; border:1px solid #1f5c0a; padding:0.4em 0.7em; background:rgba(57,255,20,0.04);">
+<pre><code>OPTIMISER LOG:
+iteration  1 → dist: 3.12
+iteration  8 → dist: 2.18
+iteration 24 → dist: 2.07
+iteration 51 → CONVERGED
+a1 = 4.222  a2 = 2.051</code></pre>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, pp.&nbsp;351–352.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 11 ─── -->
+</section>
+<section id="the-lm-function-linear-models-in-r" class="slide level2">
+<h2>The <code>lm()</code> Function: Linear Models in R</h2>
+<div class="hl-block">
+<p><span class="hl-green"><code>lm(formula, data)</code></span> — fits a linear model using <strong>ordinary least squares (OLS)</strong> via linear algebra. Faster and exact.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBGaXQgbGluZWFyIG1vZGVsOiB5IH4gYTEgKyBhMip4XG5zaW0xX21vZCA8LSBsbSh5IH4geCwgZGF0YSA9IHNpbTEpXG5cbmNvZWYoc2ltMV9tb2QpXG4jIChJbnRlcmNlcHQpICAgICAgICAgeFxuIyAgICA0LjIyMDgyMiAgICAyLjA1MTUzMyJ9
+</script>
+</div>
+</div>
+<p><strong>Anatomy of output:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>(Intercept)</code></td>
+<td>4.22</td>
+<td>(_1) — value when x=0</td>
+</tr>
+<tr class="even">
+<td><code>x</code></td>
+<td>2.05</td>
+<td>(_2) — slope</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:43%;">
+<p><strong>Generate predictions:</strong></p>
+<div class="cell">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZ3JpZCA8LSBzaW0xIHw+XG4gIGRhdGFfZ3JpZCh4KSB8PlxuICBhZGRfcHJlZGljdGlvbnMoc2ltMV9tb2QpXG5cbiMgUGxvdFxuZ2dwbG90KHNpbTEsIGFlcyh4KSkgK1xuICBnZW9tX3BvaW50KGFlcyh5ID0geSkpICtcbiAgZ2VvbV9saW5lKFxuICAgIGFlcyh5ID0gcHJlZCksXG4gICAgZGF0YSAgPSBncmlkLFxuICAgIGNvbG91ciA9IFwiIzM5ZmYxNFwiLFxuICAgIGxpbmV3aWR0aCA9IDFcbiAgKSJ9
+</script>
+</div>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, pp.&nbsp;352–353. | R Core Team. (2024). <em>R: A language and environment for statistical computing</em> (Version 4.4). R Foundation for Statistical Computing. https://www.R-project.org/</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 12 ─── -->
+</section>
+<section id="residuals-what-your-model-missed" class="slide level2">
+<h2>Residuals: What Your Model Missed</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Computing residuals:</strong></p>
+<div class="cell">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoic2ltMSA8LSBzaW0xIHw+XG4gIGFkZF9yZXNpZHVhbHMoc2ltMV9tb2QpXG5cbiMgRGlzdHJpYnV0aW9uIG9mIHJlc2lkdWFsc1xuZ2dwbG90KHNpbTEsIGFlcyhyZXNpZCkpICtcbiAgZ2VvbV9mcmVxcG9seShcbiAgICBiaW53aWR0aCA9IDAuNSxcbiAgICBjb2xvdXIgPSBcIiMzOWZmMTRcIlxuICApXG5cbiMgUmVzaWR1YWxzIHZzIHhcbmdncGxvdChzaW0xLCBhZXMoeCwgcmVzaWQpKSArXG4gIGdlb21fcmVmX2xpbmUoaCA9IDApICtcbiAgZ2VvbV9wb2ludChjb2xvdXIgPSBcIiNmZmIwMDBcIikifQ==
+</script>
+</div>
+</div>
+</div><div class="column" style="width:43%;">
+<div class="hl-block">
+<p><strong>What to look for in residuals:</strong></p>
+<ul>
+<li><span class="hl-green">Random scatter around 0</span> → good fit</li>
+<li><span class="hl-amber">Systematic pattern</span> → model is missing something</li>
+<li><span class="hl-amber">Outliers</span> → unusual observations</li>
+</ul>
+</div>
+<!-- IMAGE PLACEHOLDER
+     Keyword: "residual plot scatter around zero R ggplot2"
+     Suggest: Side-by-side: histogram of residuals (roughly normal),
+     and scatter of residuals vs x (random cloud around y=0).
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.3, pp.&nbsp;354–355.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 13 ─── -->
+</section>
+<section id="section-2" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="exercise-box">
+<div class="ex-header">
+<p><code>▶ QUICK CHECK — §1 DEFINING MODELS</code></p>
+</div>
+<p><strong>Write the <code>lm()</code> call that fits <code>mpg</code> as a function of <code>wt</code> from the <code>mtcars</code> dataset.</strong></p>
+<div class="cell">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBZb3VyIGFuc3dlciBoZXJlOlxubW9kX2NhcnMgPC0gbG0oX19fX18gfiBfX19fXywgZGF0YSA9IF9fX19fKVxuY29lZihtb2RfY2FycylcbiMgRXhwZWN0ZWQgb3V0cHV0OlxuIyAoSW50ZXJjZXB0KSAgICAgICAgICB3dFxuIyAgIDM3LjI4NTEyNiAgIC01LjM0NDQ3MiJ9
+</script>
+</div>
+</div>
+<div style="color:#1a8a00; font-size:0.75em; margin-top:0.5em;">
+<p><em>Interpretation:</em> For every 1,000 lb increase in weight, fuel efficiency decreases by approximately <span class="hl-amber">5.3 mpg</span>.</p>
+</div>
+</div>
+<div class="ref-line">
+<p>Dataset: Henderson, H. V., &amp; Velleman, P. F. (1981). Building multiple regression models interactively. <em>Biometrics, 37</em>(2), 391–411. https://doi.org/10.2307/2530428</p>
+</div>
+</section>
+<section class="slide level2">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 2 — MODEL FAMILIES  (Slides 14–27)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section-3" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="section-title">
+<div class="section-badge">
+<p><code>§ SECTION 02 / 05 ────────────────────────────</code></p>
+</div>
+<div style="font-family:'VT323',monospace; font-size:3.2em; color:#afffaf; text-shadow: 0 0 18px #39ff14; line-height:1.0;">
+<p>MODEL FAMILIES</p>
+</div>
+<div style="color:#ffb000; font-size:0.8em; margin-top:0.4em;">
+<p>Model Matrix · Categorical · Interactions · Transformations · Splines</p>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 14 ─── -->
+</section>
+<section id="what-is-a-model-family" class="slide level2">
+<h2>What Is a Model Family?</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="hl-block">
+<p>A <span class="hl-green"><strong>model family</strong></span> is a class of equations sharing the same structural form, differentiated only by their <strong>parameters</strong>.</p>
+</div>
+<p><strong>Common families in data science:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Formula</th>
+<th>R function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear</td>
+<td>(y = a_0 + a_1 x)</td>
+<td><code>lm()</code></td>
+</tr>
+<tr class="even">
+<td>Polynomial</td>
+<td>(y = a_0 + a_1 x + a_2 x^2)</td>
+<td><code>lm()</code> + <code>I()</code></td>
+</tr>
+<tr class="odd">
+<td>Natural spline</td>
+<td>flexible nonlinear</td>
+<td><code>lm()</code> + <code>ns()</code></td>
+</tr>
+<tr class="even">
+<td>Logistic</td>
+<td>( = X)</td>
+<td><code>glm(..., binomial)</code></td>
+</tr>
+<tr class="odd">
+<td>Robust linear</td>
+<td>downweights outliers</td>
+<td><code>MASS::rlm()</code></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:46%;">
+<div style="font-size:0.82em;">
+<p><strong>Choosing a family is a design decision:</strong></p>
+<ul>
+<li><span class="hl-green">Start simple</span> — linear first</li>
+<li>Let residuals guide you to more complex families</li>
+<li>Avoid overfitting: more parameters ≠ better model</li>
+</ul>
+</div>
+<!-- IMAGE PLACEHOLDER
+     Keyword: "model family comparison linear polynomial spline curve fitting"
+     Suggest: Three panels showing the same data with linear, polynomial,
+     and spline fits overlaid — illustrating increasing flexibility.
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4, pp.&nbsp;355–356. | Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6, pp.&nbsp;125–136.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 15 ─── -->
+</section>
+<section id="the-model-matrix-under-the-hood" class="slide level2">
+<h2>The Model Matrix: Under the Hood</h2>
+<div class="hl-block">
+<p><span class="hl-green"><code>model_matrix(data, formula)</code></span> translates a formula into a <strong>design matrix</strong> (X). Each column in (X) becomes a coefficient in the model.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-2"><a href=""></a>  <span class="sc">~</span>y, <span class="sc">~</span>x1, <span class="sc">~</span>x2,</span>
+<span id="cb6-3"><a href=""></a>   <span class="dv">4</span>,   <span class="dv">2</span>,   <span class="dv">5</span>,</span>
+<span id="cb6-4"><a href=""></a>   <span class="dv">5</span>,   <span class="dv">1</span>,   <span class="dv">6</span></span>
+<span id="cb6-5"><a href=""></a>)</span>
+<span id="cb6-6"><a href=""></a></span>
+<span id="cb6-7"><a href=""></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1)</span>
+<span id="cb6-8"><a href=""></a><span class="co">#   (Intercept) x1</span></span>
+<span id="cb6-9"><a href=""></a><span class="co"># 1           1  2</span></span>
+<span id="cb6-10"><a href=""></a><span class="co"># 2           1  1</span></span>
+<span id="cb6-11"><a href=""></a></span>
+<span id="cb6-12"><a href=""></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb6-13"><a href=""></a><span class="co">#   (Intercept) x1 x2</span></span>
+<span id="cb6-14"><a href=""></a><span class="co"># 1           1  2  5</span></span>
+<span id="cb6-15"><a href=""></a><span class="co"># 2           1  1  6</span></span>
+<span id="cb6-16"><a href=""></a></span>
+<span id="cb6-17"><a href=""></a><span class="co"># Remove intercept with -1:</span></span>
+<span id="cb6-18"><a href=""></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-19"><a href=""></a><span class="co">#   x1</span></span>
+<span id="cb6-20"><a href=""></a><span class="co"># 1  2</span></span>
+<span id="cb6-21"><a href=""></a><span class="co"># 2  1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.1, p.&nbsp;356. | Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6, p.&nbsp;136.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 16 ─── -->
+</section>
+<section id="the-model-matrix-continuous-predictor" class="slide level2">
+<h2>The Model Matrix: Continuous Predictor</h2>
+<p><strong>From formula to matrix — the linear model:</strong></p>
+<p><span class="math display">\[y = a_1 \cdot \underbrace{1}_{\text{intercept col}} + a_2 \cdot \underbrace{x_1}_{\text{predictor col}}\]</span></p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">model_matrix</span>(df, y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">(Intercept)</th>
+<th style="text-align: center;">x1</th>
+<th style="text-align: center;">x2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<p>Each row = one observation. Each column = one model term.</p>
+<div class="hl-block">
+<p><span class="hl-green">Rule:</span> The number of columns = the number of estimated parameters.</p>
+</div>
+</div><div class="column" style="width:43%;">
+<div style="font-size:0.82em; margin-top:0.3em;">
+<p><strong>Key formula notation:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>R syntax</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>y ~ x</code></td>
+<td>(y = a_0 + a_1 x)</td>
+</tr>
+<tr class="even">
+<td><code>y ~ x - 1</code></td>
+<td>(y = a_1 x) (no intercept)</td>
+</tr>
+<tr class="odd">
+<td><code>y ~ x1 + x2</code></td>
+<td>two predictors</td>
+</tr>
+<tr class="even">
+<td><code>y ~ x1 * x2</code></td>
+<td>interaction</td>
+</tr>
+<tr class="odd">
+<td><code>y ~ I(x^2)</code></td>
+<td>quadratic term</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.1, pp.&nbsp;356–357.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 17 ─── -->
+</section>
+<section id="categorical-variables-dummy-encoding" class="slide level2 scrollable">
+<h2>Categorical Variables: Dummy Encoding</h2>
+<div class="hl-block">
+<p>R automatically converts a <strong>categorical variable</strong> into <span class="hl-green">dummy (indicator) variables</span>. One level is dropped to avoid perfect multicollinearity (<em>reference category</em>).</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>df_cat <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb8-2"><a href=""></a>  <span class="sc">~</span>sex,     <span class="sc">~</span>response,</span>
+<span id="cb8-3"><a href=""></a>  <span class="st">"male"</span>,   <span class="dv">1</span>,</span>
+<span id="cb8-4"><a href=""></a>  <span class="st">"female"</span>, <span class="dv">2</span>,</span>
+<span id="cb8-5"><a href=""></a>  <span class="st">"male"</span>,   <span class="dv">1</span></span>
+<span id="cb8-6"><a href=""></a>)</span>
+<span id="cb8-7"><a href=""></a></span>
+<span id="cb8-8"><a href=""></a><span class="fu">model_matrix</span>(df_cat, response <span class="sc">~</span> sex)</span>
+<span id="cb8-9"><a href=""></a><span class="co">#   (Intercept) sexmale</span></span>
+<span id="cb8-10"><a href=""></a><span class="co"># 1           1       1    ← male = 1</span></span>
+<span id="cb8-11"><a href=""></a><span class="co"># 2           1       0    ← female = 0 (reference)</span></span>
+<span id="cb8-12"><a href=""></a><span class="co"># 3           1       1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Model equation:</strong> <span class="math display">\[\text{response} = a_0 + a_1 \cdot \text{sexmale}\]</span></p>
+<ul>
+<li>When <code>sex = "female"</code>: <code>sexmale = 0</code> → response = (a_0)</li>
+<li>When <code>sex = "male"</code>: <code>sexmale = 1</code> → response = (a_0 + a_1)</li>
+</ul>
+</div><div class="column" style="width:43%;">
+<div style="font-size:0.8em; color:#ffb000;">
+<p><strong>Why drop one level?</strong><br>
+If we had both <code>sexfemale</code> and <code>sexmale</code>, then <code>sexfemale = 1 - sexmale</code> always → perfect collinearity → matrix is singular → <code>lm()</code> fails.</p>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.2, pp.&nbsp;358–359.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 18 ─── -->
+</section>
+<section id="categorical-predictor-sim2-example" class="slide level2">
+<h2>Categorical Predictor: <code>sim2</code> Example</h2>
+<div class="cell">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBzaW0yOiB4IGlzIGNhdGVnb3JpY2FsIChcImFcIiwgXCJiXCIsIFwiY1wiLCBcImRcIilcbm1vZDIgPC0gbG0oeSB+IHgsIGRhdGEgPSBzaW0yKVxuXG5ncmlkIDwtIHNpbTIgfD5cbiAgZGF0YV9ncmlkKHgpIHw+XG4gIGFkZF9wcmVkaWN0aW9ucyhtb2QyKVxuXG5ncmlkXG4jICAgeCAgICBwcmVkXG4jIDEgYSAgICAxLjE1ICAg4oaQIG1lYW4gb2YgZ3JvdXAgXCJhXCJcbiMgMiBiICAgIDguMTIgICDihpAgbWVhbiBvZiBncm91cCBcImJcIlxuIyAzIGMgICAgNi4xMyAgIOKGkCBtZWFuIG9mIGdyb3VwIFwiY1wiXG4jIDQgZCAgICAxLjkxICAg4oaQIG1lYW4gb2YgZ3JvdXAgXCJkXCIifQ==
+</script>
+</div>
+</div>
+<div class="hl-block">
+<p><strong>Key insight:</strong> For a categorical-only model, <code>lm()</code> predicts the <span class="hl-green">group mean</span> for each level.</p>
+</div>
+<div style="font-size:0.82em; color:#ffb000; margin-top:0.4em;">
+<p>⚠ Warning: New factor levels not seen during training → prediction error.<br>
+<code>"Error: factor x has new level e"</code></p>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.2, pp.&nbsp;359–360.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 19 ─── -->
+</section>
+<section id="interactions-1-continuous-categorical" class="slide level2">
+<h2>Interactions (1): Continuous + Categorical</h2>
+<div class="hl-block">
+<p><span class="hl-green"><strong><code>+</code> operator</strong></span> — estimates effects <strong>independently</strong> (parallel slopes).<br>
+<span class="hl-amber"><strong><code>*</code> operator</strong></span> — estimates effects <strong>with interaction</strong> (different slopes per group).</p>
+</div>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="cell">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBzaW0zOiB4MSBjb250aW51b3VzLCB4MiBjYXRlZ29yaWNhbFxuXG4jIFBhcmFsbGVsIHNsb3BlcyAoc2FtZSBzbG9wZSwgZGlmZiBpbnRlcmNlcHQpXG5tb2QxIDwtIGxtKHkgfiB4MSArIHgyLCBkYXRhID0gc2ltMylcblxuIyBEaWZmZXJlbnQgc2xvcGUgQU5EIGludGVyY2VwdCBwZXIgZ3JvdXBcbm1vZDIgPC0gbG0oeSB+IHgxICogeDIsIGRhdGEgPSBzaW0zKVxuIyBFeHBhbmRzIHRvOlxuIyB5ID0gYTAgKyBhMSp4MSArIGEyKngyICsgYTEyKih4MSp4MikifQ==
+</script>
+</div>
+</div>
+</div><div class="column" style="width:46%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "parallel slopes vs interaction lines ggplot2 R sim3"
+     Suggest: Two panels — left shows parallel lines (mod1),
+     right shows lines with different slopes (mod2), colored by x2 group.
+-->
+</div></div>
+<p><strong>Comparing predictions:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>grid <span class="ot">&lt;-</span> sim3 <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">data_grid</span>(x1, x2) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">gather_predictions</span>(mod1, mod2)   <span class="co"># ← stacks predictions from both models</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.3, pp.&nbsp;360–363.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 20 ─── -->
+</section>
+<section id="interactions-2-two-continuous-variables" class="slide level2">
+<h2>Interactions (2): Two Continuous Variables</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># sim4: both x1 and x2 are continuous</span></span>
+<span id="cb10-2"><a href=""></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2,      <span class="at">data =</span> sim4)   <span class="co"># additive</span></span>
+<span id="cb10-3"><a href=""></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2,      <span class="at">data =</span> sim4)   <span class="co"># interaction surface</span></span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="co"># Fine-grained prediction grid</span></span>
+<span id="cb10-6"><a href=""></a>grid <span class="ot">&lt;-</span> sim4 <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href=""></a>  <span class="fu">data_grid</span>(</span>
+<span id="cb10-8"><a href=""></a>    <span class="at">x1 =</span> <span class="fu">seq_range</span>(x1, <span class="dv">5</span>),    <span class="co"># 5 evenly spaced x1 values</span></span>
+<span id="cb10-9"><a href=""></a>    <span class="at">x2 =</span> <span class="fu">seq_range</span>(x2, <span class="dv">5</span>)     <span class="co"># 5 evenly spaced x2 values</span></span>
+<span id="cb10-10"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-11"><a href=""></a>  <span class="fu">gather_predictions</span>(mod1, mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="hl-block">
+<p><strong>With two continuous predictors and interaction</strong>, the model surface is a <span class="hl-green">tilted plane</span> (additive) or a <span class="hl-amber">warped surface</span> (interaction). You must visualise <em>both</em> variables simultaneously.</p>
+</div>
+<div style="font-size:0.82em; color:#1a8a00; margin-top:0.3em;">
+<p><strong><code>seq_range()</code> tips:</strong> <code>pretty=TRUE</code> → human-readable steps · <code>trim=0.1</code> → exclude tails · <code>expand=0.1</code> → extend range</p>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.4, pp.&nbsp;363–366.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 21 ─── -->
+</section>
+<section id="transformations-inside-formulas" class="slide level2">
+<h2>Transformations Inside Formulas</h2>
+<div class="hl-block">
+<p>R formulas support <span class="hl-green">transformations</span> directly — but be careful with operator precedence.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:54%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>df_t <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span>y, <span class="sc">~</span>x, <span class="dv">1</span>,<span class="dv">1</span>, <span class="dv">2</span>,<span class="dv">2</span>, <span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a><span class="co"># ⚠ WRONG — x^2 is parsed as x*x = x</span></span>
+<span id="cb11-4"><a href=""></a><span class="fu">model_matrix</span>(df_t, y <span class="sc">~</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x)</span>
+<span id="cb11-5"><a href=""></a><span class="co">#   (Intercept)  x   ← only ONE x column!</span></span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a><span class="co"># ✅ CORRECT — use I() to protect</span></span>
+<span id="cb11-8"><a href=""></a><span class="fu">model_matrix</span>(df_t, y <span class="sc">~</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> x)</span>
+<span id="cb11-9"><a href=""></a><span class="co">#   (Intercept)  I(x^2)  x</span></span>
+<span id="cb11-10"><a href=""></a></span>
+<span id="cb11-11"><a href=""></a><span class="co"># Log transform</span></span>
+<span id="cb11-12"><a href=""></a><span class="fu">model_matrix</span>(df_t, y <span class="sc">~</span> <span class="fu">log</span>(x))</span>
+<span id="cb11-13"><a href=""></a></span>
+<span id="cb11-14"><a href=""></a><span class="co"># Square root</span></span>
+<span id="cb11-15"><a href=""></a><span class="fu">model_matrix</span>(df_t, y <span class="sc">~</span> <span class="fu">sqrt</span>(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:44%;">
+<p><strong>Why <code>I()</code> is needed:</strong></p>
+<div style="font-size:0.82em;">
+<p>In formula notation: - <code>+</code> means “add predictor” - <code>*</code> means “interaction” - <code>^</code> means “crossing to degree n”</p>
+<p><span class="hl-amber"><code>I()</code></span> wraps an expression so R treats it as <strong>arithmetic</strong>, not formula syntax.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>y ~ x^2</code></td>
+<td>just <code>x</code></td>
+</tr>
+<tr class="even">
+<td><code>y ~ I(x^2)</code></td>
+<td>(x^2) term ✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.5, pp.&nbsp;366–367.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 22 ─── -->
+</section>
+<section id="natural-splines-a-flexible-family" class="slide level2">
+<h2>Natural Splines: A Flexible Family</h2>
+<div class="hl-block">
+<p><span class="hl-green"><strong>Natural splines</strong></span> (<code>ns(x, df)</code>) fit piecewise polynomials joined smoothly at <strong>knots</strong>. They are <strong>safer than polynomials</strong> for extrapolation.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">library</span>(splines)</span>
+<span id="cb12-2"><a href=""></a></span>
+<span id="cb12-3"><a href=""></a><span class="co"># sim5: y = 4*sin(x) + noise</span></span>
+<span id="cb12-4"><a href=""></a><span class="co"># Fit models with 1 to 5 degrees of freedom</span></span>
+<span id="cb12-5"><a href=""></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">1</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb12-6"><a href=""></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">2</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb12-7"><a href=""></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">3</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb12-8"><a href=""></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">4</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb12-9"><a href=""></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">ns</span>(x, <span class="dv">5</span>), <span class="at">data =</span> sim5)</span>
+<span id="cb12-10"><a href=""></a></span>
+<span id="cb12-11"><a href=""></a>grid <span class="ot">&lt;-</span> sim5 <span class="sc">|&gt;</span></span>
+<span id="cb12-12"><a href=""></a>  <span class="fu">data_grid</span>(<span class="at">x =</span> <span class="fu">seq_range</span>(x, <span class="at">n =</span> <span class="dv">50</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-13"><a href=""></a>  <span class="fu">gather_predictions</span>(mod1, mod2,</span>
+<span id="cb12-14"><a href=""></a>                     mod3, mod4, mod5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "natural splines degrees freedom comparison R ns() sim5"
+     Suggest: Five overlaid spline fits (ns 1–5 df) on sim5 data;
+     higher df curves wiggle more; true sinusoidal pattern visible.
+-->
+<div style="font-size:0.78em; color:#ffb000; margin-top:0.5em;">
+<p><strong>Warning:</strong> Higher <code>df</code> fits training data well but may extrapolate poorly outside ([0, 3.5]).</p>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.4.5, pp.&nbsp;367–368.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 23 ─── -->
+</section>
+<section id="supervised-learning-specifying-models-mailund-ch.-6" class="slide level2">
+<h2>Supervised Learning: Specifying Models (Mailund Ch. 6)</h2>
+<div class="hl-block">
+<p><span class="hl-green"><strong>Mailund’s perspective</strong></span>: formulas in R are <strong>first-class objects</strong> with associated environments. <code>lm(y ~ x, data = df)</code> looks up variables in <code>df</code> first, then the formula’s environment.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Formulas capture their defining environment (like closures)</span></span>
+<span id="cb13-2"><a href=""></a>make_formula <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb13-3"><a href=""></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>); y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
+<span id="cb13-4"><a href=""></a>  y <span class="sc">~</span> x   <span class="co"># formula carries x and y from THIS function's scope</span></span>
+<span id="cb13-5"><a href=""></a>}</span>
+<span id="cb13-6"><a href=""></a></span>
+<span id="cb13-7"><a href=""></a>f <span class="ot">&lt;-</span> <span class="fu">make_formula</span>()</span>
+<span id="cb13-8"><a href=""></a><span class="fu">lm</span>(f)     <span class="co"># uses x and y from the closure, not global scope</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size:0.85em; margin-top:0.3em;">
+<p><strong>Three model specification components (Mailund):</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>model.frame()</code></td>
+<td>Extracts response + predictor data</td>
+</tr>
+<tr class="even">
+<td><code>model.matrix()</code></td>
+<td>Builds design matrix (X)</td>
+</tr>
+<tr class="odd">
+<td><code>model.response()</code></td>
+<td>Extracts target vector (y)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ref-line">
+<p>Mailund, T. (2017). <em>Beginning data science in R: Data analysis, visualization, and modelling for the data scientist</em>. Apress. Ch. 6, pp.&nbsp;128–138.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 24 ─── -->
+</section>
+<section id="linear-regression-anatomy-summarylm" class="slide level2">
+<h2>Linear Regression Anatomy: <code>summary(lm())</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim1)</span>
+<span id="cb14-2"><a href=""></a><span class="fu">summary</span>(mod)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Call: lm(formula = y ~ x, data = sim1)
+Residuals:
+   Min      1Q    Median    3Q     Max
+ -3.046  -0.913   0.068   0.837   3.219
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  4.2208     0.2735   15.44   &lt;2e-16 ***
+x            2.0515     0.0483   42.49   &lt;2e-16 ***
+
+Residual standard error: 1.308 on 28 degrees of freedom
+Multiple R-squared:  0.9846,  Adjusted R-squared:  0.9840
+F-statistic: 1805 on 1 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><span class="hl-green"><strong>Estimate</strong></span> — coefficient value</li>
+<li><span class="hl-green"><strong>Std. Error</strong></span> — uncertainty</li>
+<li><span class="hl-amber"><strong>p-value</strong></span> — significance</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<ul>
+<li><span class="hl-green"><strong>R²</strong></span> — proportion of variance explained</li>
+<li><span class="hl-amber"><strong>F-statistic</strong></span> — overall model significance</li>
+</ul>
+</div></div>
+<div class="ref-line">
+<p>Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6, pp.&nbsp;128–133. | Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 23.2, p.&nbsp;353.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 25 ─── -->
+</section>
+<section id="logistic-regression-binary-outcomes" class="slide level2">
+<h2>Logistic Regression: Binary Outcomes</h2>
+<div class="hl-block">
+<p>When the outcome (y {0, 1}), use <span class="hl-green"><strong>logistic regression</strong></span>:</p>
+<p><span class="math display">\[\log\frac{p}{1-p} = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k\]</span></p>
+<p>where (p = P(Y=1 | X)). Use <span class="hl-amber"><code>glm()</code></span> with <code>family = binomial</code>.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:56%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="co"># Example: predict survival (binary)</span></span>
+<span id="cb16-2"><a href=""></a>mod_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb16-3"><a href=""></a>  survived <span class="sc">~</span> age <span class="sc">+</span> fare,</span>
+<span id="cb16-4"><a href=""></a>  <span class="at">data   =</span> titanic_data,    <span class="co"># illustrative</span></span>
+<span id="cb16-5"><a href=""></a>  <span class="at">family =</span> binomial         <span class="co"># link = logit</span></span>
+<span id="cb16-6"><a href=""></a>)</span>
+<span id="cb16-7"><a href=""></a></span>
+<span id="cb16-8"><a href=""></a><span class="co"># Predicted probabilities</span></span>
+<span id="cb16-9"><a href=""></a>titanic_data <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href=""></a>  <span class="fu">add_predictions</span>(mod_logit,</span>
+<span id="cb16-11"><a href=""></a>                  <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-12"><a href=""></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:42%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "logistic regression S curve sigmoid probability prediction"
+     Suggest: Classic sigmoid curve (S-shape) showing predicted probability
+     vs. a continuous predictor; threshold at p=0.5 marked.
+-->
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/Lg.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6, pp.&nbsp;133–136.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 26 ─── -->
+</section>
+<section id="model-matrices-and-formulas-mailunds-view" class="slide level2">
+<h2>Model Matrices and Formulas: Mailund’s View</h2>
+<div class="hl-block">
+<p>Mailund shows how to <strong>build your own</strong> <code>lm()</code>-like function using model matrices directly — demystifying R’s internals.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># OLS solution: β = (X'X)^{-1} X'y</span></span>
+<span id="cb17-2"><a href=""></a>linmo <span class="ot">&lt;-</span> <span class="cf">function</span>(form, <span class="at">data =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb17-3"><a href=""></a>  mf     <span class="ot">&lt;-</span> <span class="fu">model.frame</span>(form, data)</span>
+<span id="cb17-4"><a href=""></a>  y      <span class="ot">&lt;-</span> <span class="fu">model.response</span>(mf, <span class="st">"numeric"</span>)</span>
+<span id="cb17-5"><a href=""></a>  X      <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(form, data)</span>
+<span id="cb17-6"><a href=""></a>  <span class="co"># Solve normal equations</span></span>
+<span id="cb17-7"><a href=""></a>  weights <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X, <span class="fu">t</span>(X) <span class="sc">%*%</span> y)</span>
+<span id="cb17-8"><a href=""></a>  <span class="fu">structure</span>(</span>
+<span id="cb17-9"><a href=""></a>    <span class="fu">list</span>(<span class="at">weights =</span> weights, <span class="at">formula =</span> form, <span class="at">data =</span> data),</span>
+<span id="cb17-10"><a href=""></a>    <span class="at">class =</span> <span class="st">"linear_model"</span></span>
+<span id="cb17-11"><a href=""></a>  )</span>
+<span id="cb17-12"><a href=""></a>}</span>
+<span id="cb17-13"><a href=""></a></span>
+<span id="cb17-14"><a href=""></a><span class="co"># Test it</span></span>
+<span id="cb17-15"><a href=""></a>m <span class="ot">&lt;-</span> <span class="fu">linmo</span>(y <span class="sc">~</span> x, <span class="at">data =</span> sim1)</span>
+<span id="cb17-16"><a href=""></a>m<span class="sc">$</span>weights</span>
+<span id="cb17-17"><a href=""></a><span class="co">#              [,1]</span></span>
+<span id="cb17-18"><a href=""></a><span class="co"># (Intercept)  4.221</span></span>
+<span id="cb17-19"><a href=""></a><span class="co"># x            2.052</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6, pp.&nbsp;136–140.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 27 ─── -->
+</section>
+<section id="section-4" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="exercise-box">
+<div class="ex-header">
+<p><code>▶ QUICK CHECK — §2 MODEL FAMILIES</code></p>
+</div>
+<p><strong>Using <code>sim3</code> from <code>modelr</code>:</strong></p>
+<div class="cell">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibGlicmFyeShtb2RlbHIpOyBsaWJyYXJ5KHRpZHl2ZXJzZSlcblxuIyAxLiBGaXQgYm90aCBtb2RlbHNcbm1vZF9hZGQgIDwtIGxtKHkgfiB4MSArIHgyLCBkYXRhID0gc2ltMykgICAjIGFkZGl0aXZlXG5tb2RfaW50ICA8LSBsbSh5IH4geDEgKiB4MiwgZGF0YSA9IHNpbTMpICAgIyBpbnRlcmFjdGlvblxuXG4jIDIuIENvbXBhcmUgcHJlZGljdGlvbnMgc2lkZSBieSBzaWRlXG5ncmlkIDwtIHNpbTMgfD5cbiAgZGF0YV9ncmlkKHgxLCB4MikgfD5cbiAgZ2F0aGVyX3ByZWRpY3Rpb25zKG1vZF9hZGQsIG1vZF9pbnQpXG5cbiMgMy4gVmlzdWFsaXNlIOKAlCB3aGljaCBtb2RlbCBmaXRzIGJldHRlcj9cbmdncGxvdChzaW0zLCBhZXMoeDEsIHksIGNvbG91ciA9IHgyKSkgK1xuICBnZW9tX3BvaW50KCkgK1xuICBnZW9tX2xpbmUoZGF0YSA9IGdyaWQsIGFlcyh5ID0gcHJlZCkpICtcbiAgZmFjZXRfd3JhcCh+IG1vZGVsKSJ9
+</script>
+</div>
+</div>
+<div style="color:#1a8a00; font-size:0.75em; margin-top:0.5em;">
+<p><em>Discuss with your neighbour: Does the interaction model improve the fit? How can you tell from the residuals?</em></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 3 — PRACTICAL EXAMPLES  (Slides 28–38)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section-5" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="section-title">
+<div class="section-badge">
+<p><code>§ SECTION 03 / 05 ────────────────────────────</code></p>
+</div>
+<div style="font-family:'VT323',monospace; font-size:3.2em; color:#afffaf; text-shadow: 0 0 18px #39ff14; line-height:1.0;">
+<p>PRACTICAL EXAMPLES</p>
+</div>
+<div style="color:#ffb000; font-size:0.8em; margin-top:0.4em;">
+<p>Diamonds Paradox · NYC Flights · Iterative Model Building</p>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 28 ─── -->
+</section>
+<section id="why-model-building-the-iterative-workflow" class="slide level2">
+<h2>Why Model Building? The Iterative Workflow</h2>
+<div class="hl-block">
+<p>Model building is <span class="hl-green">iterative</span>, not a one-shot process.</p>
+</div>
+
+<pre style="font-family: 'Courier New', monospace; font-size: 0.8em; line-height: 1.4;">┌─────────────────────────────────────────────────────────┐
+│                                                         │
+│  1 VISUALISE data → spot a pattern                      │
+│            ↓                                            │
+│  2 FIT a model → make the pattern concrete              │
+│            ↓                                            │
+│  3 COMPUTE residuals → what's left over?                │
+│            ↓                                            │
+│  4 VISUALISE residuals → find the next pattern          │
+│            ↑_________________________________________↑  │
+│                     REPEAT                              │
+└─────────────────────────────────────────────────────────┘
+</pre>
+<p><strong>Prerequisites for this section:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">library</span>(tidyverse); <span class="fu">library</span>(modelr)</span>
+<span id="cb18-2"><a href=""></a><span class="fu">library</span>(nycflights13); <span class="fu">library</span>(lubridate)</span>
+<span id="cb18-3"><a href=""></a><span class="fu">options</span>(<span class="at">na.action =</span> na.warn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.1, p.&nbsp;415.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 29 ─── -->
+</section>
+<section id="case-1-the-diamond-paradox" class="slide level2">
+<h2>Case 1: The Diamond Paradox 💎</h2>
+<div class="hl-block">
+<p><span class="hl-amber"><strong>Paradox:</strong></span> Lower-quality diamonds (worse cut, colour, clarity) tend to have <strong>higher</strong> prices. Why?</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBJbml0aWFsIEVEQSDigJQgcHJpY2UgdnMgcXVhbGl0eVxuZ2dwbG90KGRpYW1vbmRzLCBhZXMoY3V0LCAgICAgcHJpY2UpKSArIGdlb21fYm94cGxvdCgpXG5nZ3Bsb3QoZGlhbW9uZHMsIGFlcyhjb2xvciwgICBwcmljZSkpICsgZ2VvbV9ib3hwbG90KClcbmdncGxvdChkaWFtb25kcywgYWVzKGNsYXJpdHksIHByaWNlKSkgKyBnZW9tX2JveHBsb3QoKSJ9
+</script>
+</div>
+</div>
+<p>Worst colour: <strong>J</strong> (slightly yellow)<br>
+Worst clarity: <strong>I1</strong> (inclusions visible)<br>
+Yet <span class="hl-amber">both show higher median prices</span>…</p>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "diamonds cut color clarity price boxplot ggplot2 R paradox"
+     Suggest: Three side-by-side boxplots showing that worse quality
+     categories (Fair cut, J color, I1 clarity) have higher median prices.
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.2, pp.&nbsp;416–417.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 30 ─── -->
+</section>
+<section id="diamonds-the-confounding-variable-carat" class="slide level2">
+<h2>Diamonds: The Confounding Variable — Carat</h2>
+<div class="hl-block">
+<p>The hidden variable is <span class="hl-green"><strong>carat</strong></span> (diamond weight). Low-quality diamonds tend to be <strong>larger</strong>, and larger diamonds command higher prices regardless of quality.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div>
+<div id="webr-11" class="exercise-cell">
+
+</div>
+<script type="webr-11-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZ2dwbG90KGRpYW1vbmRzLCBhZXMoY2FyYXQsIHByaWNlKSkgK1xuICBnZW9tX2hleChiaW5zID0gNTApXG4jIFN0cm9uZyBub24tbGluZWFyIHJlbGF0aW9uc2hpcFxuXG4jIFR3ZWFrczogZmlsdGVyIGxhcmdlIGRpYW1vbmRzICsgbG9nIHRyYW5zZm9ybVxuZGlhbW9uZHMyIDwtIGRpYW1vbmRzIHw+XG4gIGZpbHRlcihjYXJhdCA8PSAyLjUpIHw+XG4gIG11dGF0ZShcbiAgICBscHJpY2UgID0gbG9nMihwcmljZSksICAgIyBsb2figoIgc2NhbGVcbiAgICBsY2FyYXQgID0gbG9nMihjYXJhdClcbiAgKVxuXG4jIE5vdyB0aGUgcmVsYXRpb25zaGlwIGlzIExJTkVBUlxuZ2dwbG90KGRpYW1vbmRzMiwgYWVzKGxjYXJhdCwgbHByaWNlKSkgK1xuICBnZW9tX2hleChiaW5zID0gNTApIn0=
+</script>
+</div>
+</div>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "diamonds carat price hex plot log transform linear R ggplot2"
+     Suggest: Left panel: raw carat vs price (curved); right panel:
+     log2(carat) vs log2(price) (linear pattern in blue/green).
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.2.1, pp.&nbsp;417–419.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 31 ─── -->
+</section>
+<section id="diamonds-fit-predict-back-transform" class="slide level2">
+<h2>Diamonds: Fit, Predict, Back-Transform</h2>
+<div class="cell">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBTdGVwIDE6IEZpdCBvbiBsb2cgc2NhbGVcbm1vZF9kaWFtb25kIDwtIGxtKGxwcmljZSB+IGxjYXJhdCwgZGF0YSA9IGRpYW1vbmRzMilcblxuIyBTdGVwIDI6IFByZWRpY3Rpb24gZ3JpZFxuZ3JpZCA8LSBkaWFtb25kczIgfD5cbiAgZGF0YV9ncmlkKGNhcmF0ID0gc2VxX3JhbmdlKGNhcmF0LCAyMCkpIHw+XG4gIG11dGF0ZShsY2FyYXQgPSBsb2cyKGNhcmF0KSkgfD5cbiAgYWRkX3ByZWRpY3Rpb25zKG1vZF9kaWFtb25kLCBcImxwcmljZVwiKSB8PlxuICBtdXRhdGUocHJpY2UgPSAyIF4gbHByaWNlKSAgICAgICAgICAgICAjIGJhY2stdHJhbnNmb3JtIVxuXG4jIFN0ZXAgMzogT3ZlcmxheSBvbiBvcmlnaW5hbCBzY2FsZVxuZ2dwbG90KGRpYW1vbmRzMiwgYWVzKGNhcmF0LCBwcmljZSkpICtcbiAgZ2VvbV9oZXgoYmlucyA9IDUwKSArXG4gIGdlb21fbGluZShkYXRhID0gZ3JpZCxcbiAgICAgICAgICAgIGNvbG91ciA9IFwiIzM5ZmYxNFwiLCBsaW5ld2lkdGggPSAxKSJ9
+</script>
+</div>
+</div>
+<div class="hl-block">
+<p><span class="hl-amber">Key technique:</span> fit the model on the <span class="hl-green">transformed</span> scale, then back-transform predictions to the original scale for interpretation.</p>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.2.1, pp.&nbsp;419–420.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 32 ─── -->
+</section>
+<section id="diamonds-residuals-restore-the-truth" class="slide level2">
+<h2>Diamonds: Residuals Restore the Truth</h2>
+<div class="cell">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBDb21wdXRlIHJlc2lkdWFscyBvbiBsb2cgc2NhbGVcbmRpYW1vbmRzMiA8LSBkaWFtb25kczIgfD5cbiAgYWRkX3Jlc2lkdWFscyhtb2RfZGlhbW9uZCwgXCJscmVzaWRcIilcblxuIyBSZXNpZHVhbHMgdnMgcXVhbGl0eSDigJQgcGFyYWRveCByZXNvbHZlZCFcbmdncGxvdChkaWFtb25kczIsIGFlcyhjdXQsICAgICBscmVzaWQpKSArIGdlb21fYm94cGxvdCgpXG5nZ3Bsb3QoZGlhbW9uZHMyLCBhZXMoY29sb3IsICAgbHJlc2lkKSkgKyBnZW9tX2JveHBsb3QoKVxuZ2dwbG90KGRpYW1vbmRzMiwgYWVzKGNsYXJpdHksIGxyZXNpZCkpICsgZ2VvbV9ib3hwbG90KCkifQ==
+</script>
+</div>
+</div>
+<div class="hl-block">
+<p><strong>Interpretation of log₂ residuals:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Residual</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="hl-amber">−1</span></td>
+<td>Half the predicted price</td>
+</tr>
+<tr class="even">
+<td><span class="hl-green">0</span></td>
+<td>Exactly as predicted</td>
+</tr>
+<tr class="odd">
+<td><span class="hl-green">+1</span></td>
+<td>Twice the predicted price</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>After removing carat’s effect: <span class="hl-green">better cut/colour/clarity → higher residual</span>. Paradox resolved.</p>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.2.1, pp.&nbsp;420–422.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 33 ─── -->
+</section>
+<section id="diamonds-a-richer-model" class="slide level2">
+<h2>Diamonds: A Richer Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># Multi-predictor model</span></span>
+<span id="cb19-2"><a href=""></a>mod_diamond2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb19-3"><a href=""></a>  lprice <span class="sc">~</span> lcarat <span class="sc">+</span> color <span class="sc">+</span> cut <span class="sc">+</span> clarity,</span>
+<span id="cb19-4"><a href=""></a>  <span class="at">data =</span> diamonds2</span>
+<span id="cb19-5"><a href=""></a>)</span>
+<span id="cb19-6"><a href=""></a></span>
+<span id="cb19-7"><a href=""></a><span class="co"># Grid using .model to fill in median values</span></span>
+<span id="cb19-8"><a href=""></a>grid <span class="ot">&lt;-</span> diamonds2 <span class="sc">|&gt;</span></span>
+<span id="cb19-9"><a href=""></a>  <span class="fu">data_grid</span>(cut, <span class="at">.model =</span> mod_diamond2) <span class="sc">|&gt;</span></span>
+<span id="cb19-10"><a href=""></a>  <span class="fu">add_predictions</span>(mod_diamond2)</span>
+<span id="cb19-11"><a href=""></a></span>
+<span id="cb19-12"><a href=""></a><span class="fu">ggplot</span>(grid, <span class="fu">aes</span>(cut, pred)) <span class="sc">+</span></span>
+<span id="cb19-13"><a href=""></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#39ff14"</span>, <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb19-14"><a href=""></a></span>
+<span id="cb19-15"><a href=""></a><span class="co"># Check large residuals (potential pricing errors)</span></span>
+<span id="cb19-16"><a href=""></a>diamonds2 <span class="sc">|&gt;</span></span>
+<span id="cb19-17"><a href=""></a>  <span class="fu">add_residuals</span>(mod_diamond2, <span class="st">"lresid2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-18"><a href=""></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(lresid2) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-19"><a href=""></a>  <span class="fu">select</span>(price, carat, cut, color, clarity) <span class="sc">|&gt;</span></span>
+<span id="cb19-20"><a href=""></a>  <span class="fu">arrange</span>(price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.2.2, pp.&nbsp;422–424.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 34 ─── -->
+</section>
+<section id="case-2-nyc-flights-daily-counts" class="slide level2">
+<h2>Case 2: NYC Flights — Daily Counts</h2>
+<div class="hl-block">
+<p><span class="hl-amber"><strong>Question:</strong></span> What affects the number of daily flights from New York City airports in 2013?</p>
+</div>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="cell">
+<div>
+<div id="webr-14" class="exercise-cell">
+
+</div>
+<script type="webr-14-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiZGFpbHkgPC0gZmxpZ2h0cyB8PlxuICBtdXRhdGUoZGF0ZSA9IG1ha2VfZGF0ZSh5ZWFyLCBtb250aCwgZGF5KSkgfD5cbiAgZ3JvdXBfYnkoZGF0ZSkgfD5cbiAgc3VtbWFyaXNlKG4gPSBuKCkpXG5cbmdncGxvdChkYWlseSwgYWVzKGRhdGUsIG4pKSArXG4gIGdlb21fbGluZShjb2xvdXIgPSBcIiMzOWZmMTRcIikifQ==
+</script>
+</div>
+</div>
+<p><strong>Data: 365 rows × 2 columns</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>date</th>
+<th>n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2013-01-01</td>
+<td>842</td>
+</tr>
+<tr class="even">
+<td>2013-01-02</td>
+<td>943</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:43%;">
+<!-- IMAGE PLACEHOLDER
+     Keyword: "NYC flights daily count time series 2013 R ggplot2 nycflights13"
+     Suggest: Line chart of daily flight counts through 2013, showing
+     weekly pattern (dips on weekends) and seasonal trend.
+-->
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.3, pp.&nbsp;424–425.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 35 ─── -->
+</section>
+<section id="flights-day-of-week-model" class="slide level2">
+<h2>Flights: Day-of-Week Model</h2>
+<div class="cell">
+<div>
+<div id="webr-15" class="exercise-cell">
+
+</div>
+<script type="webr-15-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBBZGQgZGF5IG9mIHdlZWtcbmRhaWx5IDwtIGRhaWx5IHw+XG4gIG11dGF0ZSh3ZGF5ID0gd2RheShkYXRlLCBsYWJlbCA9IFRSVUUpKVxuXG4jIE1vZGVsOiBudW1iZXIgb2YgZmxpZ2h0cyB+IGRheSBvZiB3ZWVrXG5tb2QgPC0gbG0obiB+IHdkYXksIGRhdGEgPSBkYWlseSlcblxuIyBQcmVkaWN0aW9uc1xuZ3JpZCA8LSBkYWlseSB8PlxuICBkYXRhX2dyaWQod2RheSkgfD5cbiAgYWRkX3ByZWRpY3Rpb25zKG1vZCwgXCJuXCIpXG5cbmdncGxvdChkYWlseSwgYWVzKHdkYXksIG4pKSArXG4gIGdlb21fYm94cGxvdChjb2xvdXIgPSBcIiMxYThhMDBcIikgK1xuICBnZW9tX3BvaW50KGRhdGEgPSBncmlkLFxuICAgICAgICAgICAgIGNvbG91ciA9IFwiI2ZmYjAwMFwiLCBzaXplID0gNCkifQ==
+</script>
+</div>
+</div>
+<div class="hl-block">
+<p><strong>Pattern:</strong> <span class="hl-amber">Fewer flights on weekends</span> — especially Saturdays (business travel dominates). The model captures this day-of-week effect cleanly.</p>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.3.1, pp.&nbsp;425–427.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 36 ─── -->
+</section>
+<section id="flights-residuals-expose-more-patterns" class="slide level2">
+<h2>Flights: Residuals Expose More Patterns</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>daily <span class="ot">&lt;-</span> daily <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">add_residuals</span>(mod)</span>
+<span id="cb20-3"><a href=""></a></span>
+<span id="cb20-4"><a href=""></a><span class="fu">ggplot</span>(daily, <span class="fu">aes</span>(date, resid)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href=""></a>  <span class="fu">geom_ref_line</span>(<span class="at">h =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb20-6"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"#39ff14"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Three remaining patterns in residuals:</strong></p>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="hl-block">
+<p><span class="hl-amber">① June anomaly</span> — strong regular pattern the model misses</p>
+</div>
+<div class="hl-block">
+<p><span class="hl-amber">② Saturday seasonality</span> — more flights in summer, fewer in fall</p>
+</div>
+</div><div class="column" style="width:46%;">
+<div class="hl-block">
+<p><span class="hl-green">③ Holiday outliers</span> — large negative residuals on: <code>2013-01-01</code>, <code>2013-07-04</code>, <code>2013-09-01</code>, <code>2013-11-28</code>, <code>2013-12-25</code></p>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.3.1, pp.&nbsp;427–429.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 37 ─── -->
+</section>
+<section id="flights-seasonal-saturday-effect-robust-model" class="slide level2">
+<h2>Flights: Seasonal Saturday Effect &amp; Robust Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># Define academic terms as season proxy</span></span>
+<span id="cb21-2"><a href=""></a>term <span class="ot">&lt;-</span> <span class="cf">function</span>(date) {</span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">cut</span>(date,</span>
+<span id="cb21-4"><a href=""></a>    <span class="at">breaks =</span> <span class="fu">ymd</span>(<span class="dv">20130101</span>, <span class="dv">20130605</span>, <span class="dv">20130825</span>, <span class="dv">20140101</span>),</span>
+<span id="cb21-5"><a href=""></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"spring"</span>, <span class="st">"summer"</span>, <span class="st">"fall"</span>)</span>
+<span id="cb21-6"><a href=""></a>  )</span>
+<span id="cb21-7"><a href=""></a>}</span>
+<span id="cb21-8"><a href=""></a></span>
+<span id="cb21-9"><a href=""></a>daily <span class="ot">&lt;-</span> daily <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">term</span>(date))</span>
+<span id="cb21-10"><a href=""></a></span>
+<span id="cb21-11"><a href=""></a><span class="co"># Model with interaction: wday × term</span></span>
+<span id="cb21-12"><a href=""></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily)</span>
+<span id="cb21-13"><a href=""></a></span>
+<span id="cb21-14"><a href=""></a><span class="co"># Robust model: downweights holiday outliers</span></span>
+<span id="cb21-15"><a href=""></a>mod3 <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">rlm</span>(n <span class="sc">~</span> wday <span class="sc">*</span> term, <span class="at">data =</span> daily)</span>
+<span id="cb21-16"><a href=""></a></span>
+<span id="cb21-17"><a href=""></a><span class="co"># Compare residuals</span></span>
+<span id="cb21-18"><a href=""></a>daily <span class="sc">|&gt;</span></span>
+<span id="cb21-19"><a href=""></a>  <span class="fu">gather_residuals</span>(<span class="at">basic =</span> mod, <span class="at">with_term =</span> mod2) <span class="sc">|&gt;</span></span>
+<span id="cb21-20"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, resid, <span class="at">colour =</span> model)) <span class="sc">+</span></span>
+<span id="cb21-21"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.3.2–24.3.4, pp.&nbsp;429–434. | Venables, W. N., &amp; Ripley, B. D. (2002). <em>Modern applied statistics with S</em> (4th ed.). Springer. https://doi.org/10.1007/978-0-387-21706-2</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 38 ─── -->
+</section>
+<section id="key-takeaways-from-model-building" class="slide level2">
+<h2>Key Takeaways from Model Building</h2>
+<pre><code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  WEEK 12 CORE PRINCIPLES — MODEL BUILDING (I)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</code></pre>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="hl-block">
+<p><span class="hl-green">① Start simple</span><br>
+Linear model first. Complexity only when residuals demand it.</p>
+</div>
+<div class="hl-block">
+<p><span class="hl-green">② Transformations linearise</span><br>
+<code>log()</code>, <code>sqrt()</code>, <code>I(x^2)</code>, <code>ns()</code> — make non-linear patterns tractable.</p>
+</div>
+<div class="hl-block">
+<p><span class="hl-amber">③ Residuals are your compass</span><br>
+Every pattern in residuals = next modelling opportunity.</p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="hl-block">
+<p><span class="hl-amber">④ Confounders hide truth</span><br>
+Always ask: <em>what third variable could explain this relationship?</em></p>
+</div>
+<div class="hl-block">
+<p><span class="hl-green">⑤ Know when to stop</span><br>
+More parameters → overfitting. Use <code>rlm()</code> for robustness.</p>
+</div>
+<div class="hl-block">
+<p><span class="hl-green">⑥ Combine visualisation + model</span><br>
+<code>add_predictions()</code> + <code>add_residuals()</code> + <code>ggplot2</code> = your standard workflow.</p>
+</div>
+</div></div>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 24.4, pp.&nbsp;434–435. | Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 6–7.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 4 — AT2 IN-CLASS EXERCISE  (Slides 39–41)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section-6" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="section-title">
+<div class="section-badge">
+<p><code>§ SECTION 04 / 05 ────────────────────────────</code></p>
+</div>
+<div style="font-family:'VT323',monospace; font-size:3.2em; color:#ffb000; text-shadow: 0 0 18px #ffb000; line-height:1.0;">
+<p>AT2 — IN-CLASS EXERCISE</p>
+</div>
+<div style="color:#afffaf; font-size:0.8em; margin-top:0.4em;">
+<p>Implementing Models · 60 minutes</p>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 39 ─── -->
+</section>
+<section id="at2-implementing-models-task-brief" class="slide level2">
+<h2>AT2: Implementing Models — Task Brief</h2>
+<div class="exercise-box">
+<div class="ex-header">
+<p><code>▶ AT2 — WEEK 12 IN-CLASS EXERCISE · IMPLEMENTING MODELS</code></p>
+</div>
+<p><strong>Dataset:</strong> Use <code>mpg</code> from <code>ggplot2</code> (or your own dataset with instructor approval)</p>
+<p><strong>Tasks (complete all four):</strong></p>
+<ol type="1">
+<li><p><span class="hl-green"><strong>EDA</strong></span> — Visualise the relationship between <code>hwy</code> (highway mpg) and at least two predictors. Identify a non-linear pattern.</p></li>
+<li><p><span class="hl-amber"><strong>Model fitting</strong></span> — Fit at least two models from different families (e.g., additive vs.&nbsp;interaction, or linear vs.&nbsp;spline). Use <code>lm()</code> or <code>glm()</code>.</p></li>
+<li><p><span class="hl-amber"><strong>Predictions</strong></span> — Generate prediction grids using <code>data_grid()</code> and <code>add_predictions()</code>. Plot predictions against observed values.</p></li>
+<li><p><span class="hl-green"><strong>Residual analysis</strong></span> — Compute residuals with <code>add_residuals()</code>. Visualise and interpret. Does any pattern remain?</p></li>
+</ol>
+<p><strong>Submission:</strong> R script (<code>.R</code>) or Quarto document (<code>.qmd</code>) with plots and a brief written interpretation (≤ 200 words).</p>
+</div>
+<div class="ref-line">
+<p>AT2 assessment: In-class Exercises (20% total; only best 5 contribute). Assessment details in ADS370 course outline (Niu, R., 2026).</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 40 ─── -->
+</section>
+<section id="at2-step-by-step-code-scaffold" class="slide level2">
+<h2>AT2: Step-by-Step Code Scaffold</h2>
+<div class="cell">
+<div>
+<div id="webr-16" class="exercise-cell">
+
+</div>
+<script type="webr-16-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyDilIDilIAgQURTMzcwIEFUMiBXZWVrIDEyIFNjYWZmb2xkIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuIyBBdXRob3IgOiBbWW91ciBOYW1lXVxuIyBEYXRlICAgOiAyMDI2XG4jIDAuIExvYWQgbGlicmFyaWVzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KG1vZGVscilcblxuIyAxLiBFREEg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5nZ3Bsb3QobXBnLCBhZXMoZGlzcGwsIGh3eSkpICtcbiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gY2xhc3MpKSArXG4gIGdlb21fc21vb3RoKCkgICAjIG5vdGljZTogbm9uLWxpbmVhciBwYXR0ZXJuXG5cbiMgMi4gRml0IG1vZGVscyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbm1vZDEgPC0gbG0oaHd5IH4gZGlzcGwsICAgICAgICAgICAgIGRhdGEgPSBtcGcpICAgIyBsaW5lYXJcbm1vZDIgPC0gbG0oaHd5IH4gZGlzcGwgKyBjbGFzcywgICAgIGRhdGEgPSBtcGcpICAgIyBhZGRpdGl2ZVxubW9kMyA8LSBsbShod3kgfiBkaXNwbCAqIGNsYXNzLCAgICAgZGF0YSA9IG1wZykgICAjIGludGVyYWN0aW9uXG5cbiMgMy4gUHJlZGljdGlvbnMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5ncmlkIDwtIG1wZyB8PlxuICBkYXRhX2dyaWQoZGlzcGwsIGNsYXNzKSB8PlxuICBnYXRoZXJfcHJlZGljdGlvbnMobW9kMSwgbW9kMiwgbW9kMylcblxuIyA0LiBSZXNpZHVhbHMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5tcGcgfD5cbiAgYWRkX3Jlc2lkdWFscyhtb2QzKSB8PlxuICBnZ3Bsb3QoYWVzKGRpc3BsLCByZXNpZCkpICtcbiAgZ2VvbV9wb2ludCgpICsgZ2VvbV9yZWZfbGluZShoID0gMCkifQ==
+</script>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 41 ─── -->
+</section>
+<section id="at2-submission-grading-reminder" class="slide level2 scrollable">
+<h2>AT2: Submission &amp; Grading Reminder</h2>
+<div class="exercise-box">
+<div class="ex-header">
+<p><code>▶ AT2 LOGISTICS &amp; RUBRIC</code></p>
+</div>
+<div class="columns">
+<div class="column" style="width:52%;">
+<p><strong>Submission requirements:</strong></p>
+<ul>
+<li>✅ Working R script or <code>.rmd</code> file</li>
+<li>✅ At least 2 <code>ggplot2</code> visualisations</li>
+<li>✅ All four tasks attempted</li>
+<li>✅ Written interpretation (≤ 200 words)</li>
+<li>✅ Submit via Moodle before class ends</li>
+</ul>
+<p><strong>Grading focus:</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Correct <code>lm()</code>/<code>glm()</code> usage</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>Prediction visualisation</td>
+<td>25%</td>
+</tr>
+<tr class="odd">
+<td>Residual interpretation</td>
+<td>25%</td>
+</tr>
+<tr class="even">
+<td>Code clarity &amp; comments</td>
+<td>20%</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:46%;">
+<div class="hl-block">
+<p><strong>AT2 Assessment Overview:</strong></p>
+<ul>
+<li><span class="hl-green">20% of final grade</span></li>
+<li>Only your <span class="hl-amber">best 5</span> of all weekly exercises count</li>
+<li>Missing this week = one fewer chance at a top-5 score</li>
+<li>Each exercise = equal weight</li>
+</ul>
+</div>
+<div style="font-size:0.78em; color:#1a8a00; margin-top:0.5em;">
+<pre><code>PROGRESS TRACKER:
+■ Week 1  ■ Week 2  ■ Week 3
+■ Week 4  ■ Week 5  ■ Week 6
+■ Week 7  ■ Week 9  ■ Week 10
+■ Week 11 ▶ Week 12 □ Week 13
+□ Week 14</code></pre>
+</div>
+</div></div>
+</div>
+</section>
+<section class="slide level2">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PART 5 — CLOSING  (Slides 42–43)
+     ═══════════════════════════════════════════════════════════════════════ -->
+</section>
+<section id="section-7" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div class="section-title">
+<div class="section-badge">
+<p><code>§ SECTION 05 / 05 ────────────────────────────</code></p>
+</div>
+<div style="font-family:'VT323',monospace; font-size:3.2em; color:#afffaf; text-shadow: 0 0 18px #39ff14; line-height:1.0;">
+<p>CLOSING</p>
+</div>
+<div style="color:#ffb000; font-size:0.8em; margin-top:0.4em;">
+<p>Next Week Preview · References</p>
+</div>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 42 ─── -->
+</section>
+<section id="next-week-preview-week-13" class="slide level2">
+<h2>Next Week Preview — Week 13</h2>
+<div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.6em; margin-bottom:0.5em;">
+<p><code>&gt; PRELOADING WEEK_13_MODULES ...</code></p>
+</div>
+<div class="hl-block">
+<p><strong>Week 13 — Model Building (II)</strong></p>
+<ul>
+<li><span class="hl-green"><strong>List-columns</strong></span> — store models, data frames, and arbitrary objects inside a <code>tibble</code></li>
+<li><span class="hl-amber"><strong><code>broom</code> package</strong></span> — tidy statistical model outputs into data frames
+<ul>
+<li><code>tidy()</code> → coefficients table</li>
+<li><code>glance()</code> → model-level statistics</li>
+<li><code>augment()</code> → observation-level statistics</li>
+</ul></li>
+<li><span class="hl-green"><strong>Many models at once</strong></span> — fit hundreds of models simultaneously using <code>purrr::map()</code></li>
+<li><span class="hl-amber"><strong>Quiz 2</strong></span> — covers Weeks 9–12 content</li>
+</ul>
+</div>
+<p><strong>Readings:</strong></p>
+<ul>
+<li>Wickham &amp; Grolemund (2017), Ch. 20 — Many Models</li>
+<li>Mailund (2017), Ch. 8 — More R Programming</li>
+</ul>
+<div class="ref-line">
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science</em>. O’Reilly Media. Ch. 20. | Mailund, T. (2017). <em>Beginning data science in R</em>. Apress. Ch. 8.</p>
+</div>
+<!-- ───────────────────────────────────────────────────────── Slide 43 ─── -->
+</section>
+<section id="references" class="slide level2">
+<h2>References</h2>
+<div style="font-size:0.72em; line-height:1.7; color:#39ff14;">
+<p>Box, G. E. P. (1976). Science and statistics. <em>Journal of the American Statistical Association, 71</em>(356), 791–799. https://doi.org/10.1080/01621459.1976.10480949</p>
+<p>Henderson, H. V., &amp; Velleman, P. F. (1981). Building multiple regression models interactively. <em>Biometrics, 37</em>(2), 391–411. https://doi.org/10.2307/2530428</p>
+<p>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). <em>An introduction to statistical learning: With applications in R</em> (2nd ed.). Springer. https://doi.org/10.1007/978-1-0716-1418-1</p>
+<p>Mailund, T. (2017). <em>Beginning data science in R: Data analysis, visualization, and modelling for the data scientist</em>. Apress. https://doi.org/10.1007/978-1-4842-2671-1</p>
+<p>Niu, R. (2026). <em>ADS370 R for data science: Course outline</em> [Unpublished course document]. Department of Applied Data Science, Hong Kong Shue Yan University.</p>
+<p>R Core Team. (2024). <em>R: A language and environment for statistical computing</em> (Version 4.4). R Foundation for Statistical Computing. https://www.R-project.org/</p>
+<p>Venables, W. N., &amp; Ripley, B. D. (2002). <em>Modern applied statistics with S</em> (4th ed.). Springer. https://doi.org/10.1007/978-0-387-21706-2</p>
+<p>Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em> (2nd ed.). Springer. https://doi.org/10.1007/978-3-319-24277-4</p>
+<p>Wickham, H., &amp; Grolemund, G. (2017). <em>R for data science: Import, tidy, transform, visualize, and model data</em>. O’Reilly Media. https://r4ds.had.co.nz</p>
+</div>
+</section>
+<section id="section-8" class="slide level2" data-background-color="#020f02">
+<h2></h2>
+<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:85%; gap:0.6em;">
+<div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.65em; text-align:center;">
+<pre><code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ADS370 · Week 12 · Lecture Complete
+        END OF TRANSMISSION
+        MODEL BUILDING (I)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</code></pre>
+</div>
+<div style="font-family:'VT323',monospace; color:#39ff14; font-size:2.2em; text-shadow:0 0 14px #39ff14; text-align:center;">
+<p>SEE YOU NEXT WEEK<span class="cursor"></span></p>
+</div>
+<div style="color:#ffb000; font-size:0.75em; font-family:'Share Tech Mono',monospace; text-align:center; margin-top:0.5em;">
+<p><strong>Dr.&nbsp;Ruiwu Niu</strong> · Department of Applied Data Science<br>
+Hong Kong Shue Yan University</p>
+</div>
+</div>
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsInRpZHl2ZXJzZSIsIm1vZGVsciIsIm55Y2ZsaWdodHMxMyIsImx1YnJpZGF0ZSIsInNwbGluZXMiLCJNQVNTIiwiaGV4YmluIl0sInJlcG9zIjpbXX0sInJlbmRlcl9kZiI6ImRlZmF1bHQifQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>ADS370 · Week 12 · Model Building (I) &nbsp;|&nbsp; Dr.&nbsp;Ruiwu Niu · HKSYU</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="ADS370_W12_ModelBuilding_I_live_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': false,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -1,0 +1,306 @@
+/*-- scss:defaults --*/
+
+// ─── Core Palette ──────────────────────────────────────────────────────────
+$phosphor:        #39ff14;   // classic P1/P31 green phosphor
+$phosphor-dim:    #1a8a00;
+$phosphor-bright: #afffaf;
+$amber:           #ffb000;   // secondary: amber highlight
+$scanline-dark:   #000d00;   // near-black for scanlines
+$crt-bg:          #020f02;   // deep CRT background
+$panel-border:    #1f5c0a;
+$code-hl:         #00ff88;
+
+// ─── Typography ────────────────────────────────────────────────────────────
+// "Share Tech Mono" is a free Google Font; "VT323" for headings (pixel feel)
+// Fallbacks: "Courier New", monospace
+$font-family-sans-serif:  'Share Tech Mono', 'Courier New', monospace !default;
+$font-family-monospace:   'Share Tech Mono', 'Courier New', monospace !default;
+$presentation-font-size-root: 34px !default;
+$presentation-line-height: 1.45 !default;
+
+// ─── Colors ────────────────────────────────────────────────────────────────
+$body-bg:           $crt-bg !default;
+$body-color:        $phosphor !default;
+$link-color:        $amber !default;
+$link-color-hover:  $phosphor-bright !default;
+$selection-bg:      $phosphor !default;
+$selection-color:   $crt-bg !default;
+
+// ─── Headings ──────────────────────────────────────────────────────────────
+$presentation-heading-font:   'VT323', 'Share Tech Mono', monospace !default;
+$presentation-heading-color:  $phosphor-bright !default;
+$presentation-h1-font-size:   2.2em !default;
+$presentation-h2-font-size:   1.55em !default;
+$presentation-h3-font-size:   1.15em !default;
+$presentation-heading-font-weight: 400 !default;
+$presentation-heading-text-transform: uppercase !default;
+$presentation-heading-letter-spacing: 0.06em !default;
+$presentation-heading-text-shadow: 0 0 8px $phosphor, 0 0 20px $phosphor-dim !default;
+
+// ─── Code blocks ───────────────────────────────────────────────────────────
+$code-block-bg:           #001400 !default;
+$code-block-border-color: $panel-border !default;
+$code-block-font-size:    0.62em !default;
+$code-color:              $code-hl !default;
+
+// ─── Layout ────────────────────────────────────────────────────────────────
+$border-color:  $panel-border !default;
+$border-width:  1px !default;
+$border-radius: 0px !default;   // hard corners = retro
+
+/*-- scss:rules --*/
+
+// ─── Google Fonts import ───────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+// ─── Global CRT texture ────────────────────────────────────────────────────
+.reveal {
+  background-color: $crt-bg;
+  // Grain overlay via radial-gradient noise approximation
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.12) 0px,
+        rgba(0,0,0,0.12) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    animation: scanroll 8s linear infinite;
+  }
+}
+
+// Scanline roll animation
+@keyframes scanroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 300px; }
+}
+
+// Phosphor glow on all text
+.reveal .slides {
+  color: $phosphor;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.55);
+}
+
+// ─── Slide base ────────────────────────────────────────────────────────────
+.reveal .slides section {
+  border: 1px solid $panel-border;
+  box-shadow: inset 0 0 40px rgba(0,30,0,0.7), 0 0 20px rgba(57,255,20,0.08);
+  padding: 0.6em 1.1em 1em 1.1em !important;
+  // subtle CRT curvature illusion via box-shadow
+  border-radius: 2px;
+}
+
+// ─── Headings ──────────────────────────────────────────────────────────────
+.reveal h1, .reveal h2 {
+  color: $phosphor-bright;
+  text-shadow: 0 0 10px $phosphor, 0 0 25px $phosphor-dim;
+  border-bottom: 1px solid $panel-border;
+  padding-bottom: 0.15em;
+  margin-bottom: 0.4em;
+  letter-spacing: 0.07em;
+}
+
+.reveal h3 {
+  color: $amber;
+  text-shadow: 0 0 8px rgba(255,176,0,0.5);
+  letter-spacing: 0.05em;
+}
+
+// ─── Logo in top-right ─────────────────────────────────────────────────────
+// Place logo via .hksyu-logo class on a positioned div in the header
+.hksyu-logo {
+  position: fixed;
+  top: 10px;
+  right: 14px;
+  z-index: 1000;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px $phosphor-dim);
+  img {
+    height: 48px;
+    width: auto;
+  }
+}
+
+// ─── Highlighted keywords ──────────────────────────────────────────────────
+.reveal .hl-green {
+  color: $phosphor-bright;
+  font-weight: bold;
+  text-shadow: 0 0 10px $phosphor;
+}
+.reveal .hl-amber {
+  color: $amber;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255,176,0,0.7);
+}
+.reveal .hl-box {
+  background: rgba(57,255,20,0.1);
+  border: 1px solid $phosphor-dim;
+  border-left: 3px solid $phosphor;
+  padding: 0.2em 0.5em;
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+}
+.reveal .hl-block {
+  background: rgba(57,255,20,0.08);
+  border-left: 3px solid $phosphor;
+  padding: 0.4em 0.8em;
+  margin: 0.4em 0;
+  font-size: 0.92em;
+}
+
+// ─── Code blocks ───────────────────────────────────────────────────────────
+.reveal pre {
+  background: #000e00;
+  border: 1px solid $panel-border;
+  border-left: 3px solid $phosphor-dim;
+  box-shadow: 0 0 12px rgba(57,255,20,0.12);
+  border-radius: 0;
+}
+.reveal code {
+  color: $code-hl;
+  background: transparent;
+  text-shadow: 0 0 4px rgba(0,255,136,0.4);
+}
+
+// ─── CRT noise flicker (subtle) ────────────────────────────────────────────
+@keyframes flicker {
+  0%   { opacity: 1.0; }
+  2%   { opacity: 0.97; }
+  4%   { opacity: 1.0; }
+  50%  { opacity: 1.0; }
+  52%  { opacity: 0.98; }
+  54%  { opacity: 1.0; }
+}
+.reveal .slides {
+  animation: flicker 6s infinite;
+}
+
+// ─── Tables ────────────────────────────────────────────────────────────────
+.reveal table {
+  border-collapse: collapse;
+  font-size: 0.8em;
+  width: 100%;
+}
+.reveal table th {
+  background: rgba(57,255,20,0.15);
+  color: $phosphor-bright;
+  border: 1px solid $panel-border;
+  padding: 0.3em 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.reveal table td {
+  border: 1px solid $panel-border;
+  padding: 0.25em 0.55em;
+  color: $phosphor;
+}
+.reveal table tr:hover td {
+  background: rgba(57,255,20,0.06);
+}
+
+// ─── Footnote / reference text ─────────────────────────────────────────────
+.reveal .footnote, .reveal .ref-line {
+  font-size: 0.42em;
+  color: $phosphor-dim;
+  border-top: 1px solid $panel-border;
+  margin-top: 0.6em;
+  padding-top: 0.25em;
+  text-shadow: none;
+  letter-spacing: 0.02em;
+}
+
+// ─── Section divider slides ────────────────────────────────────────────────
+.reveal .section-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80%;
+}
+.reveal .section-badge {
+  font-family: 'VT323', monospace;
+  font-size: 1.0em;
+  color: $amber;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 6px rgba(255,176,0,0.5);
+  margin-bottom: 0.3em;
+}
+
+// ─── Image placeholder box ─────────────────────────────────────────────────
+.reveal .img-placeholder {
+  border: 2px dashed $phosphor-dim;
+  background: rgba(0,20,0,0.4);
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $phosphor-dim;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 0.5em;
+}
+
+// ─── Two-column layout ─────────────────────────────────────────────────────
+.reveal .col-left  { float: left;  width: 49%; }
+.reveal .col-right { float: right; width: 49%; }
+.reveal .clearfix::after { content: ''; display: table; clear: both; }
+
+// ─── Progress bar ──────────────────────────────────────────────────────────
+.reveal .progress {
+  background: $scanline-dark;
+}
+.reveal .progress span {
+  background: $phosphor;
+  box-shadow: 0 0 6px $phosphor;
+}
+
+// ─── Slide number ──────────────────────────────────────────────────────────
+.reveal .slide-number {
+  background: transparent;
+  color: $phosphor-dim;
+  font-size: 0.5em;
+  font-family: 'Share Tech Mono', monospace;
+  bottom: 6px;
+  right: 10px;
+}
+
+// ─── Formula display ───────────────────────────────────────────────────────
+.reveal .math {
+  color: $phosphor-bright;
+  text-shadow: 0 0 8px rgba(175,255,175,0.4);
+}
+
+// ─── Cursor blink effect on title ─────────────────────────────────────────
+.reveal .cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background: $phosphor;
+  animation: blink 1s step-end infinite;
+  vertical-align: bottom;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+// ─── AT2 Exercise callout ──────────────────────────────────────────────────
+.reveal .exercise-box {
+  border: 2px solid $amber;
+  background: rgba(255,176,0,0.05);
+  padding: 0.5em 0.8em;
+  box-shadow: 0 0 12px rgba(255,176,0,0.15);
+}
+.reveal .exercise-box .ex-header {
+  color: $amber;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3em;
+}
