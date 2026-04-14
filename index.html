@@ -12,7 +12,7 @@
   <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="Dr.&nbsp;Ruiwu Niu">
-  <meta name="dcterms.date" content="2026-01-01">
+  <meta name="dcterms.date" content="2026-04-14">
   <title>Model Building (I)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -242,7 +242,7 @@ Dr.&nbsp;Ruiwu Niu
     </div>
 </div>
 
-  <p class="date">2026-01-01</p>
+  <p class="date">2026-04-14</p>
 </section>
 <section class="slide level2">
 
@@ -722,7 +722,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBZb3VyIGFuc3dlciBoZXJl
 </div>
 <!-- ───────────────────────────────────────────────────────── Slide 14 ─── -->
 </section>
-<section id="what-is-a-model-family" class="slide level2">
+<section id="what-is-a-model-family" class="slide level2 scrollable">
 <h2>What Is a Model Family?</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
@@ -1108,7 +1108,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyBzaW0zOiB4MSBjb250aW51
 </div>
 <!-- ───────────────────────────────────────────────────────── Slide 23 ─── -->
 </section>
-<section id="supervised-learning-specifying-models-mailund-ch.-6" class="slide level2">
+<section id="supervised-learning-specifying-models-mailund-ch.-6" class="slide level2 scrollable">
 <h2>Supervised Learning: Specifying Models (Mailund Ch. 6)</h2>
 <div class="hl-block">
 <p><span class="hl-green"><strong>Mailund’s perspective</strong></span>: formulas in R are <strong>first-class objects</strong> with associated environments. <code>lm(y ~ x, data = df)</code> looks up variables in <code>df</code> first, then the formula’s environment.</p>
@@ -1705,7 +1705,7 @@ More parameters → overfitting. Use <code>rlm()</code> for robustness.</p>
 
 </div>
 <script type="webr-16-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyDilIDilIAgQURTMzcwIEFUMiBXZWVrIDEyIFNjYWZmb2xkIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuIyBBdXRob3IgOiBbWW91ciBOYW1lXVxuIyBEYXRlICAgOiAyMDI2XG4jIDAuIExvYWQgbGlicmFyaWVzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KG1vZGVscilcblxuIyAxLiBFREEg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5nZ3Bsb3QobXBnLCBhZXMoZGlzcGwsIGh3eSkpICtcbiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gY2xhc3MpKSArXG4gIGdlb21fc21vb3RoKCkgICAjIG5vdGljZTogbm9uLWxpbmVhciBwYXR0ZXJuXG5cbiMgMi4gRml0IG1vZGVscyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbm1vZDEgPC0gbG0oaHd5IH4gZGlzcGwsICAgICAgICAgICAgIGRhdGEgPSBtcGcpICAgIyBsaW5lYXJcbm1vZDIgPC0gbG0oaHd5IH4gZGlzcGwgKyBjbGFzcywgICAgIGRhdGEgPSBtcGcpICAgIyBhZGRpdGl2ZVxubW9kMyA8LSBsbShod3kgfiBkaXNwbCAqIGNsYXNzLCAgICAgZGF0YSA9IG1wZykgICAjIGludGVyYWN0aW9uXG5cbiMgMy4gUHJlZGljdGlvbnMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5ncmlkIDwtIG1wZyB8PlxuICBkYXRhX2dyaWQoZGlzcGwsIGNsYXNzKSB8PlxuICBnYXRoZXJfcHJlZGljdGlvbnMobW9kMSwgbW9kMiwgbW9kMylcblxuIyA0LiBSZXNpZHVhbHMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5tcGcgfD5cbiAgYWRkX3Jlc2lkdWFscyhtb2QzKSB8PlxuICBnZ3Bsb3QoYWVzKGRpc3BsLCByZXNpZCkpICtcbiAgZ2VvbV9wb2ludCgpICsgZ2VvbV9yZWZfbGluZShoID0gMCkifQ==
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyDilIDilIAgQURTMzcwIEFUMiBXZWVrIDEyIFNjYWZmb2xkIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuIyBBdXRob3IgOiBbWW91ciBOYW1lXVxuIyBEYXRlICAgOiAyMDI2XG4jIDAuIExvYWQgbGlicmFyaWVzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KG1vZGVscilcblxuIyAxLiBFREEg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5cblxuIyAyLiBGaXQgbW9kZWxzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuXG5cbiMgMy4gUHJlZGljdGlvbnMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5cblxuIyA0LiBSZXNpZHVhbHMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAIn0=
 </script>
 </div>
 </div>
@@ -1796,7 +1796,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiIyDilIDilIAgQURTMzcwIEFU
 </div>
 <!-- ───────────────────────────────────────────────────────── Slide 42 ─── -->
 </section>
-<section id="next-week-preview-week-13" class="slide level2">
+<section id="next-week-preview-week-13" class="slide level2 scrollable">
 <h2>Next Week Preview — Week 13</h2>
 <div style="font-family:'Share Tech Mono',monospace; color:#1a8a00; font-size:0.6em; margin-bottom:0.5em;">
 <p><code>&gt; PRELOADING WEEK_13_MODULES ...</code></p>
@@ -2103,42 +2103,80 @@ W10=
     window._ojs.runtime.interpretFromScriptTags();
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
